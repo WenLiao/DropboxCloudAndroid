@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.dropbox.chooser.android.DbxChooser;
@@ -49,21 +50,29 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //setup the Text view
+        EditText inputUrl = (EditText) findViewById(R.id.urlInput);
+        inputUrl.setText("http://tednewardsandbox.site44.com/questions.json");
+
         mChooser = new DbxChooser(APP_KEY);
         DBBtn = (Button) findViewById(R.id.db);
         DBBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DBBtn.setEnabled(false);
                 mChooser.forResultType(DbxChooser.ResultType.PREVIEW_LINK).launch(MainActivity.this,DBX_CHOOSER_REQUEST);
             }
         });
 
-        Button DWNBtn= (Button) findViewById(R.id.download);
+        final Button DWNBtn= (Button) findViewById(R.id.download);
         DWNBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                downloadFileName = "wen";
-                DownloadService.setUrl(Uri.parse("http://tednewardsandbox.site44.com/questions.json"));
+                EditText urlInput = (EditText) findViewById(R.id.urlInput);
+
+                downloadFileName = urlInput.getText().toString();
+                DWNBtn.setEnabled(false);
+                DownloadService.setUrl(Uri.parse(downloadFileName));
                 Intent downloadServiceIntent = new Intent(MainActivity.this, DownloadService.class);
                 startService(downloadServiceIntent);
             }
@@ -131,6 +140,12 @@ public class MainActivity extends ActionBarActivity {
                                     //update data !!!!
                                     Log.i("Wen","Data update....");
                                     writeToFile(strContent.toString());
+                                    //set all botton to able status
+                                    Button dwnBtn = (Button)findViewById(R.id.download);
+                                    dwnBtn.setEnabled(true);
+
+                                    Button DBBtn = (Button) findViewById(R.id.db);
+                                    DBBtn.setEnabled(true);
 
                                     // YOUR CODE HERE [write string to data/data.json]
                                     //      [hint, i wrote a writeFile method in MyApp... figure out how to call that from inside this Activity]
