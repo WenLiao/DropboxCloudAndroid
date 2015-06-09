@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="https://android.dropbox.com/StringsSchema">
-    <!-- From: file:/C:/Users/MSR-2/AndroidStudioProjects/DropboxCloudAndroid/dropboxChooserSDK/build/intermediates/bundles/debug/res/values/values.xml -->
+    <!-- From: file:/Users/jimliao/AndroidStudioProjects/DropboxCloudAndroid/dropboxChooserSDK/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment/>
     <color name="actionBarBackground">#007de3</color>
     <color name="actionBarHighlight">#000000</color>
